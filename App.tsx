@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
+import 'expo-dev-client';
 import React, { useEffect, useState } from 'react';
 import { View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
-
 import { api } from './src/util/api';
 
 import Routes from './src/routes';

@@ -1,8 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
-  align-items: center;
-  padding: 20px;
+export const Container = styled.ScrollView`
 `;
 
 export const Icon = styled.Image`
@@ -14,7 +12,7 @@ export const Description = styled.Text`
   font-size: 18px;
   color: #333333;
   margin-vertical: 20px;
-  text-align: left;
+  text-align: center;
   width: 100%;
 `;
 

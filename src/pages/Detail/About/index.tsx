@@ -13,12 +13,12 @@ interface IProps {
 
 const About: React.FC<IProps> = ({ description, specie, weight, height }) => {
   return (
-    <Container>
-      <Icon
-        source={arrowDown}
-      />
+    <Container
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ padding: 20, alignItems: 'center' }}
+    >
       <Description>{description}</Description>
-      <Title style={{ marginBottom: 20 }}>Data</Title>
+      <Title>Data</Title>
       <Row>
         <Title>Species</Title>
         <Info>{specie}</Info>

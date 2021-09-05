@@ -26,7 +26,7 @@ export const Icon = styled(Image)`
 `;
 
 export const OverlayContainer = styled.View`
-  flex: 1;
+  flex: 2;
 `;
 
 export const Title = styled.Text`
@@ -37,7 +37,7 @@ export const Title = styled.Text`
 
 export const SubTitle = styled.Text`
   font-family: Gilroy-Medium;
-  margin-vertical: 10px;
+  margin-bottom: 10px;
 `;
 
 export const Text = styled.Text`
@@ -48,15 +48,15 @@ export const Row = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width:100%;
+  margin-vertical: 5px;
 `;
 
 export const Item = styled.Text`
   font-family: Gilroy-Light;
-
 `;
 
 export const Checkbox = styled(CheckBox)`
-
 `;
 
 export const CheckboxIcon = styled.Image`
@@ -67,4 +67,5 @@ export const ModalButton = styled(Button)`
   position: absolute;
   bottom: 0px;
   background-color: #FF3333;
+  padding-horizontal: 20px;
 `;

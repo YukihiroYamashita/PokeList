@@ -12,13 +12,15 @@ interface IProps {
 }
 
 const Stats: React.FC<IProps> = ({ hp, attack, defense }) => {
-
   return (
-    <Container>
-      <Icon
+    <Container
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ padding: 20, alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}
+    >
+      {/* <Icon
         source={arrowDown}
-      />
-      <Title style={{ marginBottom: 20 }}>Base Stats</Title>
+      /> */}
+      <Title>Base Stats</Title>
       <Row>
         <Title>HP</Title>
         <Bar

@@ -17,9 +17,7 @@ const Pokemon: React.FC<IProps> = ({ id }) => {
           source={pokeball}
         />
         <PokemonImage
-          width={200}
-          height={200}
-          source={{ uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg` }}
+          source={{ uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png` }}
         />
       </Container>
     </>

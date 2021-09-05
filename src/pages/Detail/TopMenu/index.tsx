@@ -16,11 +16,6 @@ const TopMenu: React.FC = () => {
           source={back}
         />
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Icon
-          source={favorites}
-        />
-      </TouchableOpacity>
     </Container>
   );
 }

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-
 import TopMenu from './TopMenu';
 import Pokemon from './Pokemon';
 import MiddleMenu from './MiddleMenu';
 import About from './About';
 import Stats from './Stats';
-import Evolution from './Evolution';
 
 import { Container, MenuContainer, TopContainer, Name, Item, Row } from './styles';
 
@@ -48,27 +46,23 @@ const Detail: React.FC = () => {
     <Container>
       <TopContainer>
         <TopMenu />
-        <Pokemon 
-          id={pokemonId}
-        />
         <MiddleMenu 
           name={name}
         />
+        <Pokemon 
+          id={pokemonId}
+        />
+        <Row>
+          <Item 
+            style={{ fontFamily: selected ==='About'? 'Gilroy-Bold' : 'Gilroy-Light'}}
+            onPress={() => setSelected('About')}
+          >About</Item>
+          <Item
+            style={{ fontFamily: selected ==='Stats'? 'Gilroy-Bold' : 'Gilroy-Light'}}
+            onPress={() => setSelected('Stats')}
+          >Stats</Item>
+        </Row>
       </TopContainer>
-      <Row>
-        <Item 
-          style={{ fontFamily: selected ==='About'? 'Gilroy-Bold' : 'Gilroy-Light'}}
-          onPress={() => setSelected('About')}
-        >About</Item>
-        <Item
-          style={{ fontFamily: selected ==='Stats'? 'Gilroy-Bold' : 'Gilroy-Light'}}
-          onPress={() => setSelected('Stats')}
-        >Stats</Item>
-        {/* <Item 
-          style={{ fontFamily: selected ==='Evolution'? 'Gilroy-Bold' : 'Gilroy-Light'}}
-          onPress={() => setSelected('Evolution')}
-        >Evolution</Item> */}
-      </Row>
       <MenuContainer>
         {renderContent()}
       </MenuContainer>

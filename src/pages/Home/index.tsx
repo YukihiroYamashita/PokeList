@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, ScrollView } from 'react-native';
 
 import close from '../../assets/close.png';
 import checked from '../../assets/checked.png';
@@ -15,10 +15,9 @@ import { IApplicationState } from '../../redux';
 import { store } from '../../redux';
 
 import Card from './Card';
+import Error from './Error';
 
 import { Container, FlatList, ListContainer, Modal, Icon, Title, SubTitle, Row, Item, Checkbox, Text, CheckboxIcon, ModalButton, OverlayContainer } from './styles';
-import axios from 'axios';
-import * as cheerio from 'cheerio';
 
 interface IResponse { 
   results: []
@@ -52,21 +51,13 @@ const Home: React.FC = () => {
 
   const [orderBy, setOrderBy] = useState<String>('');
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
+  const [errorIsVisible, setErrorIsVisible] = useState<boolean>(false);
 
   const { navigate } = useNavigation();
 
   const pokemonsFromRedux = useSelector(
     (state: IApplicationState) => state.Pokemons
   );
-
-  useEffect(() => { 
-    async function getColor() { 
-     
-
-    };
-
-    getColor();
-  },[])
 
   useEffect(() => { 
     setListOfPokemons(pokemonsFromRedux.pokemon.slice(initialListCount, finalListCount));
@@ -221,7 +212,7 @@ const Home: React.FC = () => {
         overlayStyle={{ width: '100%', height: '80%', position:'absolute', bottom: 0, padding: 40 }}
         animationType='slide'
       >
-        <>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <OverlayContainer>
             <Icon
               source={close}
@@ -237,6 +228,7 @@ const Home: React.FC = () => {
                 uncheckedIcon={<CheckboxIcon source={unchecked}/>}
                 checkedIcon={<CheckboxIcon source={checked}/>}
                 onPress={() => setOrderBy('nameAsc')}
+                containerStyle={{ left: 10, padding: 0 }}
               />
             </Row>
             <Row>
@@ -246,6 +238,7 @@ const Home: React.FC = () => {
                 uncheckedIcon={<CheckboxIcon source={unchecked}/>}
                 checkedIcon={<CheckboxIcon source={checked}/>}
                 onPress={() => setOrderBy('nameDesc')}
+                containerStyle={{ left: 10, padding: 0 }}
               />
             </Row>
             <Row>
@@ -255,6 +248,7 @@ const Home: React.FC = () => {
                 uncheckedIcon={<CheckboxIcon source={unchecked}/>}
                 checkedIcon={<CheckboxIcon source={checked}/>}
                 onPress={() => setOrderBy('numberAsc')}
+                containerStyle={{ left: 10, padding: 0 }}
               />
             </Row>
             <Row>
@@ -264,31 +258,37 @@ const Home: React.FC = () => {
                 uncheckedIcon={<CheckboxIcon source={unchecked}/>}
                 checkedIcon={<CheckboxIcon source={checked}/>}
                 onPress={() => setOrderBy('numberDesc')}
+                containerStyle={{ left: 10, padding: 0 }}
               />
             </Row>
           </OverlayContainer>
           <ModalButton
-            title='CONFIRM'
+            title='APPLY'
             onPress={handleFilterPress}
             titleStyle={{ fontFamily: 'Gilroy-Bold' }}
-            buttonStyle={{  backgroundColor: '#FF3333' }}
+            buttonStyle={{  backgroundColor: '#FF3333', marginTop: 20 }}
           />
           <ModalButton
             title='CLEAR'
             onPress={handleClearPress}
             titleStyle={{ fontFamily: 'Gilroy-Bold', color: '#FF3333' }}
-            buttonStyle={{  borderColor: '#FF3333', marginTop: 20, backgroundColor: '#FFF', borderWidth: 1 }}
+            buttonStyle={{  borderColor: '#FF3333', marginVertical: 20, backgroundColor: '#FFF', borderWidth: 1 }}
           />
-        </>
+        </ScrollView>
       </Modal>
     )
   }
 
   return (
     <Container>
+      <Error
+        isVisible={errorIsVisible}
+        onPress={() => setErrorIsVisible(false)}
+      />
       {renderFilterModal()}
       <Header 
         onFilterPress={() => setModalIsVisible(true)}
+        onSearchError={() => setErrorIsVisible(true)}
       />
       <ListContainer>
         <FlatList
@@ -297,7 +297,7 @@ const Home: React.FC = () => {
           keyExtractor={item => String(item.name)}
           showsVerticalScrollIndicator={false}
           onEndReached={handleEndReached}
-          onEndReachedThreshold={0.2}
+          onEndReachedThreshold={0.5}
           initialNumToRender={10}
           ListFooterComponent={renderListFooterComponent}
         />

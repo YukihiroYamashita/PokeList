@@ -27,7 +27,8 @@ interface IFindPokemonResponse {
       base_stat: string;
     }
   ],
-  species: { name: string }
+  species: { name: string },
+  status: number;
 }
 
 interface IFindPokemonCharacteristicsResponse { 
@@ -40,9 +41,10 @@ interface IFindPokemonCharacteristicsResponse {
 
 interface IProps { 
   onFilterPress: () => void;
+  onSearchError: () => void;
 }
 
-const Header: React.FC<IProps> = ({ onFilterPress }) => {
+const Header: React.FC<IProps> = ({ onFilterPress, onSearchError }) => {
   const [value, setValue] = useState<String>('');
 
   const { navigate } = useNavigation();
@@ -62,36 +64,41 @@ const Header: React.FC<IProps> = ({ onFilterPress }) => {
   }
 
   async function fetchFindPokemon() { 
-    const pokemonFinded = await api.get<IFindPokemonResponse>(`/pokemon/${value}`);
+    try { 
+      const pokemonFinded = await api.get(`/pokemon/${value}`);
 
-    let pokemonId = pokemonFinded.data.id;
-
-    const pokemonFindedCharacteristc = await api.get<IFindPokemonCharacteristicsResponse>(`/characteristic/${pokemonId}`);
-
-    let pokemonName = pokemonFinded.data.name;
-    let pokemonSpecie = pokemonFinded?.data?.species.name;
-    let pokemonCharacteristic = pokemonFindedCharacteristc?.data?.descriptions[2].description;
-
-    let pokemonHp = pokemonFinded.data.stats[0].base_stat;
-    let pokemonAttack = pokemonFinded.data.stats[1].base_stat;
-    let pokemonDefense = pokemonFinded.data.stats[2].base_stat;
-
-    navigate('Detail', { 
-      pokemonId: pokemonId,
-      name: pokemonName,
-      characteriscic: pokemonCharacteristic,
-      specie: pokemonSpecie,
-      hp: pokemonHp,
-      attack: pokemonAttack,
-      defense: pokemonDefense
-    });
-
-    setValue('');
+      let pokemonId = pokemonFinded.data.id;
+  
+      const pokemonFindedCharacteristc = await api.get<IFindPokemonCharacteristicsResponse>(`/characteristic/${pokemonId}`);
+  
+      let pokemonName = pokemonFinded.data.name;
+      let pokemonSpecie = pokemonFinded?.data?.species.name;
+      let pokemonCharacteristic = pokemonFindedCharacteristc?.data?.descriptions[2].description;
+  
+      let pokemonHp = pokemonFinded.data.stats[0].base_stat;
+      let pokemonAttack = pokemonFinded.data.stats[1].base_stat;
+      let pokemonDefense = pokemonFinded.data.stats[2].base_stat;
+  
+      navigate('Detail', { 
+        pokemonId: pokemonId,
+        name: pokemonName,
+        characteriscic: pokemonCharacteristic,
+        specie: pokemonSpecie,
+        hp: pokemonHp,
+        attack: pokemonAttack,
+        defense: pokemonDefense
+      });
+  
+      setValue('');
+    } catch(err) {
+      setValue('');
+      onSearchError();
+    }
   }
 
   return (
     <Container>
-      <Row>
+      <Row style={{ justifyContent: 'flex-end' }}>
         <Icon
           source={filter}
           onPress={onFilterPress}
