@@ -8,7 +8,7 @@ import { Container, Icon, Row, Title } from './styles';
 interface IProps { 
   hp: number;
   attack: number;
-  defense;
+  defense: number;
 }
 
 const Stats: React.FC<IProps> = ({ hp, attack, defense }) => {

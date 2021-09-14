@@ -9,7 +9,7 @@ export const Container = styled.View`
 export const ListContainer = styled.View`
   flex: 1;
   background-color: #FFF;
-  padding: 20px;
+  padding-horizontal: 20px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 `;

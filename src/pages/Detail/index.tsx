@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+
+import { DetailProps } from '../../routes/screenProps';
 
 import TopMenu from './TopMenu';
 import Pokemon from './Pokemon';
@@ -8,18 +10,12 @@ import About from './About';
 import Stats from './Stats';
 
 import { Container, MenuContainer, TopContainer, Name, Item, Row } from './styles';
-
-interface IParamProps { 
-  params: {
-    pokemonId: string;
-  }
-}
+import { RootStackParamList } from '../../routes/RootStackParams';
 
 const Detail: React.FC = () => {
   const [selected, setSelected] = useState<String>('About');
 
-  const { navigate } = useNavigation();
-  const { pokemonId, name, characteriscic, specie, hp, attack, defense } = useRoute().params;
+  const { pokemonId, name, characteriscic, specie, hp, attack, defense } = useRoute<RouteProp<RootStackParamList, 'Detail'>>().params;
 
   function renderContent() { 
     if(selected === 'About') { 

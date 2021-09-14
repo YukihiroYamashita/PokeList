@@ -9,10 +9,9 @@ import unchecked from '../../assets/unchecked.png';
 
 import Header from '../../components/Header';
 
+import { MainStack } from '../../routes';
 import { api } from '../../util/api';
-
 import { IApplicationState } from '../../redux';
-import { store } from '../../redux';
 
 import Card from './Card';
 import Error from './Error';
@@ -44,16 +43,17 @@ interface IFindPokemonCharacteristicsResponse {
     }
   ]
 }
+
 const Home: React.FC = () => {
   const [listOfPokemons, setListOfPokemons] = useState<any>([]);
   const [initialListCount, setInitialListCount] = useState<number>(0);
   const [finalListCount, setFinalListCount] = useState<number>(10);
 
-  const [orderBy, setOrderBy] = useState<String>('');
+  const [orderBy, setOrderBy] = useState<string>('');
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
   const [errorIsVisible, setErrorIsVisible] = useState<boolean>(false);
 
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<MainStack>();
 
   const pokemonsFromRedux = useSelector(
     (state: IApplicationState) => state.Pokemons
@@ -66,16 +66,13 @@ const Home: React.FC = () => {
   async function fetchPokemonData(id : string) {
     const pokemonFinded = await api.get<IFindPokemonResponse>(`/pokemon/${id}`);
     const pokemonFindedCharacteristc = await api.get<IFindPokemonCharacteristicsResponse>(`/characteristic/${id}`);
-    const pokemonFindedEvolution = await api.get(`/evolution-chain/${id}`);
     
     let pokemonName = pokemonFinded.data.name;
     let pokemonSpecie = pokemonFinded?.data?.species.name;
-    let pokemonCharacteristic = pokemonFindedCharacteristc?.data?.descriptions[2].description;
-
-    let pokemonHp = pokemonFinded.data.stats[0].base_stat;
+    let pokemonCharacteristic = pokemonFindedCharacteristc.data.descriptions[2].description;
+    let pokemonHp = Number(pokemonFinded.data.stats[0].base_stat);
     let pokemonAttack = pokemonFinded.data.stats[1].base_stat;
     let pokemonDefense = pokemonFinded.data.stats[2].base_stat;
-
 
     navigate('Detail', { 
       pokemonId: id,

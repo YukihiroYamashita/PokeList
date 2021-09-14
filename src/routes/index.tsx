@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { NavigationContainer, CompositeScreenProps  } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import Home from '../pages/Home';
 import Detail from '../pages/Detail';
@@ -9,6 +9,8 @@ import Detail from '../pages/Detail';
 import { RootStackParamList } from './RootStackParams';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export type MainStack = NativeStackNavigationProp<RootStackParamList>;
 
 const Routes: React.FC = () => {
   return (
@@ -25,6 +27,7 @@ const Routes: React.FC = () => {
         <Stack.Screen 
           name="Detail"
           component={Detail}
+          
         />
       </Stack.Navigator>
     </NavigationContainer>
