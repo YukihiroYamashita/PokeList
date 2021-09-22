@@ -8,6 +8,7 @@ import Pokemon from './Pokemon';
 import MiddleMenu from './MiddleMenu';
 import About from './About';
 import Stats from './Stats';
+import Intro from './Intro';
 
 import { Container, MenuContainer, TopContainer, Name, Item, Row } from './styles';
 import { RootStackParamList } from '../../routes/RootStackParams';
@@ -15,32 +16,33 @@ import { RootStackParamList } from '../../routes/RootStackParams';
 const Detail: React.FC = () => {
   const [selected, setSelected] = useState<String>('About');
 
-  const { pokemonId, name, characteriscic, specie, hp, attack, defense } = useRoute<RouteProp<RootStackParamList, 'Detail'>>().params;
+  // const { pokemonId, name, characteriscic, specie, hp, attack, defense } = useRoute<RouteProp<RootStackParamList, 'Detail'>>().params;
 
-  function renderContent() { 
-    if(selected === 'About') { 
-      return (
-        <About 
-          description={characteriscic}
-          height={20}
-          weight={30}
-          specie={specie}
-        />
-      )
-    } else if (selected === 'Stats') {
-      return (
-        <Stats 
-          hp={hp}
-          attack={attack}
-          defense={defense}
-        />
-      )
-    }
-  }
+  // function renderContent() { 
+  //   if(selected === 'About') { 
+  //     return (
+  //       <About 
+  //         description={characteriscic}
+  //         height={20}
+  //         weight={30}
+  //         specie={specie}
+  //       />
+  //     )
+  //   } else if (selected === 'Stats') {
+  //     return (
+  //       <Stats 
+  //         hp={hp}
+  //         attack={attack}
+  //         defense={defense}
+  //       />
+  //     )
+  //   }
+  // }
 
   return (
     <Container>
-      <TopContainer>
+      <Intro/>
+      {/* <TopContainer>
         <TopMenu />
         <MiddleMenu 
           name={name}
@@ -61,7 +63,7 @@ const Detail: React.FC = () => {
       </TopContainer>
       <MenuContainer>
         {renderContent()}
-      </MenuContainer>
+      </MenuContainer> */}
     </Container>
   );
 }

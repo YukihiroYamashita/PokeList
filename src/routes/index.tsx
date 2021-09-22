@@ -19,6 +19,7 @@ const Routes: React.FC = () => {
         screenOptions={{
           headerShown: false
         }}
+        initialRouteName="Detail"
       >
         <Stack.Screen 
           name="Home"
